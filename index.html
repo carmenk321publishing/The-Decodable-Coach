@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Decodable Coach · Atlantis Learning Archives</title>
-<meta name="description" content="Check whether a draft decodable text fits a lesson in a UFLI-inspired sequence. Not officially aligned with UFLI.">
+<meta name="description" content="Check whether a draft decodable text fits a chosen lesson. Inspired by UFLI Foundations; not officially aligned.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -24,16 +24,16 @@
   </nav>
   <button class="icon-btn" id="theme" aria-label="Toggle light or dark theme" title="Toggle theme">◐</button>
 </header>
-<p class="notice" role="note">Inspired by UFLI Foundations. Not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida.</p>
+<p class="notice" style="margin:0;padding:.55rem clamp(1rem,3vw,2rem);font-size:.85rem;background:var(--surface-2);border-bottom:1px solid var(--divider);color:var(--muted)">Inspired by the UFLI Foundations scope and sequence. Not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida.</p>
 
 <div class="layout">
 <main id="main">
 
 <section class="stage is-active" data-stage="1">
   <p class="eyebrow">Step 1 · Choose the level</p>
-  <h1 class="stage-title">Which lesson is your decoder for?</h1>
-  <p class="lede">Pick the lesson your students have just reached in the UFLI Foundations sequence. The checker treats everything taught through that lesson as available and everything after it as not yet taught.</p>
-  <div class="field"><label for="lesson">Target lesson</label><select id="lesson"></select></div>
+  <h1 class="stage-title">Which UFLI-inspired lesson is your decoder for?</h1>
+  <p class="lede">Pick the lesson your students have just reached. The checker treats everything taught through that lesson as available and everything after it as not yet taught.</p>
+  <div class="field"><label for="lesson">Target lesson (based on the UFLI Foundations sequence)</label><select id="lesson"></select></div>
   <div class="card" id="lessonCard"></div>
   <div class="stage-foot"><button class="btn btn-primary" data-go="2">Continue to draft</button></div>
 </section>
