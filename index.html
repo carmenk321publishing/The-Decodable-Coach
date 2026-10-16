@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Decodable Coach · Atlantis Learning Archives</title>
+<meta name="description" content="Check whether a draft decodable text fits a chosen UFLI Foundations lesson.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 32h28M10 32V14m6 18V14m8 18V14m6 18V14M7 14l13-8 13 8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="brand-text"><span class="brand-name">The Decodable Coach</span><span class="brand-sub">Atlantis Learning Archives</span></div>
+  </div>
+  <nav class="tabs" aria-label="Steps">
+    <button class="tab is-active" data-go="1"><span class="tab-num">1</span>Choose level</button>
+    <button class="tab" data-go="2"><span class="tab-num">2</span>Add draft</button>
+    <button class="tab" data-go="3"><span class="tab-num">3</span>Review</button>
+    <button class="tab" data-go="4"><span class="tab-num">4</span>Refine</button>
+  </nav>
+  <button class="icon-btn" id="theme" aria-label="Toggle light or dark theme" title="Toggle theme">◐</button>
+</header>
+
+<div class="layout">
+<main id="main">
+
+<section class="stage is-active" data-stage="1">
+  <p class="eyebrow">Step 1 · Choose the level</p>
+  <h1 class="stage-title">Which UFLI lesson is your decoder for?</h1>
+  <p class="lede">Pick the lesson your students have just reached. The checker treats everything taught through that lesson as available and everything after it as not yet taught.</p>
+  <div class="field"><label for="lesson">Target UFLI Foundations lesson</label><select id="lesson"></select></div>
+  <div class="card" id="lessonCard"></div>
+  <div class="stage-foot"><button class="btn btn-primary" data-go="2">Continue to draft</button></div>
+</section>
+
+<section class="stage" data-stage="2">
+  <p class="eyebrow">Step 2 · Add your draft</p>
+  <h1 class="stage-title">Paste the decoder you would like to create</h1>
+  <p class="lede sm">Add the full text. Titles, sentences and word lists all work. Your text stays in your browser and is never uploaded.</p>
+  <div class="field"><label for="draft">Draft text</label><textarea id="draft" rows="9" placeholder="Type or paste your draft here…"></textarea></div>
+  <div class="field"><label for="heart">Heart (irregular) words already taught <span class="muted">· optional</span></label>
+    <input type="text" id="heart" placeholder="e.g. the, a, to, I">
+    <p class="hint">Heart words are common words with a spelling part that does not follow the patterns taught so far (for example, <i>said</i>). Words listed here are accepted as taught. Other irregular words are flagged so you can confirm them in the UFLI Step 7 slides.</p></div>
+  <p class="grid-label">Or try an example</p>
+  <div class="cheat-row">
+    <button class="chip" data-ex="fit">◆ A draft that fits</button>
+    <button class="chip" data-ex="refine">▲ A draft to refine</button>
+    <button class="chip" data-ex="later">▼ A draft for later</button>
+  </div>
+  <div class="stage-foot"><button class="btn btn-ghost" data-go="1">Back</button><button class="btn btn-primary" id="run">Check my draft</button></div>
+  <p class="error" id="err" hidden>Please add some text to check.</p>
+</section>
+
+<section class="stage" data-stage="3">
+  <p class="eyebrow">Step 3 · Review</p>
+  <h1 class="stage-title">Here is how your draft meets the level</h1>
+  <div id="verdict"></div>
+  <h2 class="sub">Your draft, word by word</h2>
+  <p class="legend"><span class="w w-target">◆ target</span><span class="w w-review">✓ review</span><span class="w w-heart">♥ heart word</span><span class="w w-soon">▲ coming soon</span><span class="w w-later">▼ coming later</span><span class="w w-check">? check</span></p>
+  <div class="draft-view" id="annot"></div>
+  <h2 class="sub">Word details</h2>
+  <div class="table-wrap"><table id="wtable"><thead><tr><th>Word</th><th>Status</th><th>Earliest lesson</th><th>Pattern</th></tr></thead><tbody></tbody></table></div>
+  <div class="stage-foot"><button class="btn btn-ghost" data-go="2">Edit draft</button><button class="btn btn-primary" data-go="4">Refine</button></div>
+</section>
+
+<section class="stage" data-stage="4">
+  <p class="eyebrow">Step 4 · Refine</p>
+  <h1 class="stage-title">Swap, move, or keep</h1>
+  <div id="refine"></div>
+  <h2 class="sub">Words available at this level</h2>
+  <p class="hint">Words from the built-in bank that use the target pattern (◆) or only earlier patterns (✓).</p>
+  <div id="bank" class="bank"></div>
+  <h2 class="sub">Save your report</h2>
+  <div class="stage-foot"><button class="btn btn-primary" id="dl">Download report (.txt)</button><button class="btn btn-secondary" id="print">Print</button></div>
+</section>
+
+<p class="fine">Independently created to align with the UFLI Foundations scope and sequence; not reviewed, approved, or endorsed by UFLI or the University of Florida. This is a rule-based first pass and does not check spelling. Confirm decisions in the <a href="https://ufli.education.ufl.edu/foundations/toolbox/" target="_blank" rel="noopener">official UFLI Foundations Toolbox</a>.</p>
+</main>
+
+<aside class="sidebar">
+  <div class="panel archive" id="archive" data-built="">
+    <svg viewBox="0 0 240 140" class="art" role="img" aria-label="Columns of the archive light up as you finish each step">
+      <rect width="240" height="140" class="sea"/>
+      <g class="col c1"><rect x="34" y="50" width="18" height="62"/><rect x="28" y="44" width="30" height="8"/></g>
+      <g class="col c2"><rect x="84" y="38" width="18" height="74"/><rect x="78" y="32" width="30" height="8"/></g>
+      <g class="col c3"><rect x="134" y="38" width="18" height="74"/><rect x="128" y="32" width="30" height="8"/></g>
+      <g class="col c4"><rect x="184" y="50" width="18" height="62"/><rect x="178" y="44" width="30" height="8"/></g>
+      <path class="floor" d="M0 112h240v28H0z"/>
+      <path class="wave" d="M0 20q15-8 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0"/>
+    </svg>
+    <div class="panel-body"><h3>The archive</h3><p>Each finished step lights a column.</p></div>
+  </div>
+  <div class="panel"><div class="panel-body">
+    <h3>Reading the labels</h3>
+    <ul class="tick">
+      <li><b>Target</b> uses a pattern from your chosen lesson.</li>
+      <li><b>Review</b> uses earlier patterns.</li>
+      <li><b>Coming soon</b> is taught within the next 10 lessons.</li>
+      <li><b>Coming later</b> is taught more than 10 lessons ahead.</li>
+    </ul>
+  </div></div>
+  <div class="panel"><div class="panel-body">
+    <h3>References</h3>
+    <ul class="tick">
+      <li><a href="https://ufli.education.ufl.edu/foundations/toolbox/" target="_blank" rel="noopener">UFLI Foundations Toolbox</a></li>
+      <li><a href="https://ufli.education.ufl.edu/wp-content/uploads/2022/06/UFLI-Scope2.pdf" target="_blank" rel="noopener">Scope and sequence at a glance</a></li>
+      <li><a href="https://carmenk321publishing.github.io/Atlantis-Learning-Archives/" target="_blank" rel="noopener">Atlantis Learning Archives</a></li>
+    </ul>
+  </div></div>
+</aside>
+</div>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
