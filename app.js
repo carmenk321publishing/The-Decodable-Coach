@@ -12,6 +12,7 @@ var EX = {
   refine: {lesson: '18', text: 'Ben fed the hen.\nThe hen can stand on the bed.\nBen met a red hen.'},
   later: {lesson: '20', text: 'The rain fell in the night.\nDan sat by the lake.\nThe boat can float.'}
 };
+var DISCLAIMER = 'The Decodable Coach is inspired by the UFLI Foundations scope and sequence but is not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida. It is a rule-based first pass and does not check spelling. Verify decisions in the official UFLI Foundations Toolbox.';
 var state = {done: {}, result: null};
 var sel = $('#lesson');
 var units = [];
@@ -120,14 +121,40 @@ function run() {
   mark(2); mark(3); go(3);
 }
 $('#run').addEventListener('click', run);
-$('#dl').addEventListener('click', function () {
-  var r = state.result; if (!r) return;
-  var out = ['The Decodable Coach report', 'Target: Lesson ' + r.lesson.id + ' - ' + r.lesson.concept, '', 'Result: ' + r.title].concat(r.pts.map(function (p) { return '- ' + p; }), ['', r.stats.join(' | '), '', 'Flagged words:']);
-  r.rf.forEach(function (x) { out.push('- ' + x.w + ' (' + x.r.why + ', Lesson ' + x.r.lesson + ')'); });
-  if (!r.rf.length) out.push('- none');
-  out.push('', 'Draft:', r.text, '', 'The Decodable Coach is inspired by the UFLI Foundations scope and sequence but is not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida. Verify decisions in the official UFLI Foundations Toolbox.');
-  var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([out.join('\n')], {type: 'text/plain'})); a.download = 'decodable-coach-report.txt'; a.click();
-  mark(4);
+
+function reportHtml(r) {
+  var rows = r.words.slice().sort(function (a, b) { return b.r.lesson - a.r.lesson; }).map(function (x) {
+    var c = CLS[x.c];
+    return '<tr><td>' + esc(x.w) + (x.n > 1 ? ' ×' + x.n : '') + '</td><td>' + c[1] + ' ' + c[2] + '</td><td>' + (x.r.lesson || '–') + '</td><td>' + esc(x.r.why) + '</td></tr>';
+  }).join('');
+  var fl = r.rf.length ? '<ul>' + r.rf.map(function (x) { return '<li><b>' + esc(x.w) + '</b>: ' + esc(x.r.why) + ' (taught in ' + esc(lab(x.r.lesson)) + ')</li>'; }).join('') + '</ul>' : '<p>None.</p>';
+  return '<h1>The Decodable Coach: Full Report</h1>' +
+    '<p><b>Target:</b> Lesson ' + esc(r.lesson.id) + ' · ' + esc(r.lesson.concept) + ' (' + esc(r.lesson.unit) + ')</p>' +
+    '<h2>Result: ' + esc(r.title) + '</h2><ul>' + r.pts.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' +
+    '<p>' + r.stats.map(esc).join(' &nbsp;|&nbsp; ') + '</p>' +
+    '<h2>Flagged words</h2>' + fl +
+    '<h2>Your draft</h2><p>' + esc(r.text).replace(/\n/g, '<br>') + '</p>' +
+    '<h2>Word details</h2><table border="1" cellspacing="0" cellpadding="4"><tr><th>Word</th><th>Status</th><th>Earliest lesson</th><th>Pattern</th></tr>' + rows + '</table>' +
+    '<p class="small" style="font-size:9pt;color:#444">' + esc(DISCLAIMER) + '</p>';
+}
+function decoderHtml(r) {
+  var hearts = r.words.filter(function (x) { return x.c === 'heartok' || x.c === 'heartchk'; }).map(function (x) { return x.w; });
+  var paras = r.text.split(/\n+/).filter(function (p) { return p.trim(); }).map(function (p) { return '<p class="dec" style="font-size:22pt;line-height:1.8">' + esc(p.trim()) + '</p>'; }).join('');
+  return '<h1>Decoder · Lesson ' + esc(r.lesson.id) + '</h1><p class="small" style="font-size:10pt;color:#444">' + esc(r.lesson.concept) + '</p>' + paras +
+    (hearts.length ? '<p class="small" style="font-size:10pt;color:#444">Heart words in this text: ' + esc(hearts.join(', ')) + '</p>' : '');
+}
+function saveDoc(name, title, body) {
+  var html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>' + esc(title) + '</title><style>body{font-family:Calibri,Arial,sans-serif;font-size:12pt;line-height:1.5}h1{font-size:20pt}h2{font-size:14pt}table{border-collapse:collapse}td,th{border:1px solid #888;padding:3pt 5pt;text-align:left}</style></head><body>' + body + '</body></html>';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff', html], {type: 'application/msword'}));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+}
+function need() { if (!state.result) { if ($('#draft').value.trim()) run(); else go(2); } return state.result; }
+$('#dlReport').addEventListener('click', function () { var r = need(); if (!r) return; saveDoc('decodable-coach-full-report.doc', 'The Decodable Coach: Full Report', reportHtml(r)); mark(4); });
+$('#dlDecoder').addEventListener('click', function () { var r = need(); if (!r) return; saveDoc('decodable-coach-decoder.doc', 'Decoder', decoderHtml(r)); mark(4); });
+$('#print').addEventListener('click', function () {
+  var r = need(); if (!r) return;
+  $('#printArea').innerHTML = '<section>' + reportHtml(r) + '</section><section class="pb">' + decoderHtml(r) + '</section>';
+  mark(4); window.print();
 });
-$('#print').addEventListener('click', function () { mark(4); window.print(); });
 })();

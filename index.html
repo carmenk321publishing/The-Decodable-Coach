@@ -8,6 +8,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+#printArea{display:none}
+@media print{
+  body>*:not(#printArea){display:none!important}
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
+  #printArea{display:block!important;color:#000;background:#fff;font-family:Georgia,'Times New Roman',serif;font-size:12pt;line-height:1.5}
+  #printArea h1{font-size:20pt;margin:0 0 8pt}#printArea h2{font-size:14pt;margin:14pt 0 6pt}
+  #printArea table{border-collapse:collapse;width:100%;font-size:10pt}#printArea td,#printArea th{border:1px solid #888;padding:3pt 5pt;text-align:left}
+  #printArea .pb{page-break-before:always}
+  #printArea .dec{font-size:22pt;line-height:1.8;margin:0 0 10pt}
+  #printArea .small{font-size:9pt;color:#444}
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -75,8 +88,9 @@
   <h2 class="sub">Words available at this level</h2>
   <p class="hint">Words from the built-in bank that use the target pattern (◆) or only earlier patterns (✓).</p>
   <div id="bank" class="bank"></div>
-  <h2 class="sub">Save your report</h2>
-  <div class="stage-foot"><button class="btn btn-primary" id="dl">Download report (.txt)</button><button class="btn btn-secondary" id="print">Print</button></div>
+  <h2 class="sub">Save your work</h2>
+  <div class="stage-foot"><button class="btn btn-primary" id="dlReport">Download full report (.doc)</button><button class="btn btn-primary" id="dlDecoder">Download the decoder (.doc)</button><button class="btn btn-secondary" id="print">Print</button></div>
+  <p class="hint">Print includes only the full report followed by the decoder on its own page.</p>
 </section>
 
 <p class="fine">The Decodable Coach is inspired by the UFLI Foundations scope and sequence but is not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida. It is a rule-based first pass and does not check spelling. Verify decisions in the <a href="https://ufli.education.ufl.edu/foundations/toolbox/" target="_blank" rel="noopener">official UFLI Foundations Toolbox</a>.</p>
@@ -114,6 +128,7 @@
   </div></div>
 </aside>
 </div>
+<div id="printArea" aria-hidden="true"></div>
 <script src="data.js"></script>
 <script src="engine.js"></script>
 <script src="app.js"></script>
