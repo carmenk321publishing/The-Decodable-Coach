@@ -125,7 +125,7 @@ $('#dl').addEventListener('click', function () {
   var out = ['The Decodable Coach report', 'Target: Lesson ' + r.lesson.id + ' - ' + r.lesson.concept, '', 'Result: ' + r.title].concat(r.pts.map(function (p) { return '- ' + p; }), ['', r.stats.join(' | '), '', 'Flagged words:']);
   r.rf.forEach(function (x) { out.push('- ' + x.w + ' (' + x.r.why + ', Lesson ' + x.r.lesson + ')'); });
   if (!r.rf.length) out.push('- none');
-  out.push('', 'Draft:', r.text, '', 'Independently created to align with the UFLI Foundations scope and sequence; not reviewed or endorsed by UFLI or the University of Florida. Verify in the official Toolbox.');
+  out.push('', 'Draft:', r.text, '', 'The Decodable Coach is inspired by the UFLI Foundations scope and sequence but is not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida. It is a rule-based first pass; verify decisions in the official UFLI Foundations Toolbox.');
   var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([out.join('\n')], {type: 'text/plain'})); a.download = 'decodable-coach-report.txt'; a.click();
   mark(4);
 });

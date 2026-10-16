@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Decodable Coach · Atlantis Learning Archives</title>
-<meta name="description" content="Check whether a draft decodable text fits a chosen UFLI Foundations lesson.">
+<meta name="description" content="Check whether a draft decodable text fits a lesson in a UFLI-inspired sequence. Not officially aligned with UFLI.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -24,15 +24,16 @@
   </nav>
   <button class="icon-btn" id="theme" aria-label="Toggle light or dark theme" title="Toggle theme">◐</button>
 </header>
+<p class="notice" role="note">Inspired by UFLI Foundations. Not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida.</p>
 
 <div class="layout">
 <main id="main">
 
 <section class="stage is-active" data-stage="1">
   <p class="eyebrow">Step 1 · Choose the level</p>
-  <h1 class="stage-title">Which UFLI lesson is your decoder for?</h1>
-  <p class="lede">Pick the lesson your students have just reached. The checker treats everything taught through that lesson as available and everything after it as not yet taught.</p>
-  <div class="field"><label for="lesson">Target UFLI Foundations lesson</label><select id="lesson"></select></div>
+  <h1 class="stage-title">Which lesson is your decoder for?</h1>
+  <p class="lede">Pick the lesson your students have just reached in the UFLI Foundations sequence. The checker treats everything taught through that lesson as available and everything after it as not yet taught.</p>
+  <div class="field"><label for="lesson">Target lesson</label><select id="lesson"></select></div>
   <div class="card" id="lessonCard"></div>
   <div class="stage-foot"><button class="btn btn-primary" data-go="2">Continue to draft</button></div>
 </section>
@@ -78,7 +79,7 @@
   <div class="stage-foot"><button class="btn btn-primary" id="dl">Download report (.txt)</button><button class="btn btn-secondary" id="print">Print</button></div>
 </section>
 
-<p class="fine">Independently created to align with the UFLI Foundations scope and sequence; not reviewed, approved, or endorsed by UFLI or the University of Florida. This is a rule-based first pass and does not check spelling. Confirm decisions in the <a href="https://ufli.education.ufl.edu/foundations/toolbox/" target="_blank" rel="noopener">official UFLI Foundations Toolbox</a>.</p>
+<p class="fine">The Decodable Coach is inspired by the UFLI Foundations scope and sequence but is not officially aligned with, reviewed by, or endorsed by UFLI or the University of Florida. It is a rule-based first pass and does not check spelling. Verify decisions in the <a href="https://ufli.education.ufl.edu/foundations/toolbox/" target="_blank" rel="noopener">official UFLI Foundations Toolbox</a>.</p>
 </main>
 
 <aside class="sidebar">
